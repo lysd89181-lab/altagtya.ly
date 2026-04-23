@@ -3,245 +3,1042 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التغطية لتقنية المعلومات | متجرك التقني المتكامل</title>
+    <title>الرئيسية | التغطية لتقنية المعلومات</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <style>
+        /* --- 1. التغيرات والأساسيات (Root & Base) --- */
         :root {
-            --primary: #a52a2a;      /* أحمر التغطية */
+            --primary: #a52a2a;      /* أحمر التغطية الرسمي */
             --dark-blue: #0a2647;    /* أزرق الهوية */
+            --accent: #205295;
             --light-blue: #144272;
             --white: #ffffff;
-            --gray: #f4f7fa;
-            --text: #2c3e50;
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --gray-bg: #f8f9fa;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --success: #27ae60;
+            --gold: #f1c40f;
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--gray); color: var(--text); overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        /* --- الهيدر --- */
+        body {
+            background-color: var(--gray-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. الهيدر (Header & Navigation) --- */
         header {
             background: var(--white);
-            padding: 10px 5%;
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 5%;
             position: sticky;
-            top: 0; z-index: 1000;
-            box-shadow: var(--shadow);
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
             border-bottom: 3px solid var(--primary);
         }
 
-        .menu-toggle { font-size: 1.5rem; cursor: pointer; color: var(--dark-blue); }
-        
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-area img { width: 50px; height: 50px; border-radius: 50%; }
-        .logo-area h1 { font-size: 1.3rem; color: var(--dark-blue); font-weight: 900; }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-        .header-icons { display: flex; gap: 20px; font-size: 1.2rem; cursor: pointer; }
-        .cart-icon { position: relative; }
+        .menu-trigger {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .menu-trigger:hover { color: var(--primary); }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-box img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            padding: 2px;
+        }
+
+        .logo-box h1 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .action-icon {
+            position: relative;
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-icon:hover { color: var(--primary); transform: scale(1.1); }
+
         .badge {
-            position: absolute; top: -8px; right: -10px;
-            background: var(--primary); color: white;
-            font-size: 0.7rem; padding: 2px 6px; border-radius: 50%;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            border: 2px solid var(--white);
         }
 
-        /* --- القائمة الجانبية (Sidebar) --- */
+        /* --- 3. القائمة الجانبية (Sidebar) --- */
         .sidebar {
-            position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
-            background: var(--dark-blue); color: white;
-            transition: 0.4s; z-index: 2000; padding: 30px 20px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: var(--dark-blue);
+            color: white;
+            z-index: 2000;
+            transition: 0.5s ease;
+            padding: 40px 25px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.3);
         }
+
         .sidebar.active { right: 0; }
-        .sidebar h2 { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; font-size: 1.2rem; }
-        .sidebar ul { list-style: none; }
-        .sidebar ul li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
-        .sidebar ul li:hover { padding-right: 10px; color: var(--primary); }
-        .sidebar ul li i { margin-left: 10px; width: 20px; }
-        .close-sidebar { position: absolute; top: 20px; left: 20px; font-size: 1.5rem; cursor: pointer; }
 
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: none; z-index: 1500;
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
         }
-        .overlay.active { display: block; }
 
-        /* --- قسم التصنيفات السريع --- */
-        .categories-nav {
-            background: var(--white); padding: 15px 5%;
-            display: flex; gap: 15px; overflow-x: auto;
+        .close-sidebar { font-size: 1.5rem; cursor: pointer; }
+
+        .user-profile-summary {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar-nav { list-style: none; }
+
+        .sidebar-nav li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sidebar-nav li:hover { color: var(--primary); padding-right: 10px; }
+
+        .sidebar-nav li i { width: 25px; text-align: center; font-size: 1.1rem; }
+
+        /* --- 4. سلة المشتريات (Cart Drawer) --- */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 340px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 2001;
+            transition: 0.5s ease;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.active { left: 0; }
+
+        .cart-header {
+            padding: 25px;
+            background: var(--dark-blue);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-items-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #eee;
+            animation: fadeIn 0.3s;
         }
-        .cat-item {
-            padding: 8px 20px; background: var(--gray); border-radius: 20px;
-            white-space: nowrap; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.3s;
-        }
-        .cat-item.active, .cat-item:hover { background: var(--primary); color: white; }
 
-        /* --- شبكة المنتجات --- */
-        .main-content { padding: 30px 5%; }
+        .cart-item img { width: 60px; height: 60px; object-fit: contain; }
+
+        .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 5px; }
+
+        .cart-footer {
+            padding: 25px;
+            border-top: 2px solid #eee;
+            background: #f9f9f9;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        /* --- 5. محتوى الصفحات (Pages) --- */
+        .page { display: none; padding-bottom: 60px; min-height: 80vh; }
+        .page.active { display: block; animation: fadeIn 0.5s; }
+
+        /* --- 6. صفحة المتجر (Store View) --- */
+        .hero-banner {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(rgba(10, 38, 71, 0.8), rgba(10, 38, 71, 0.8)), url('https://wallpaperaccess.com/full/1510574.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-banner h2 { font-size: 2rem; font-weight: 900; margin-bottom: 10px; }
+
+        .categories-scroll {
+            display: flex;
+            gap: 15px;
+            padding: 0 5% 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar { display: none; }
+
+        .cat-chip {
+            padding: 10px 25px;
+            background: var(--white);
+            border-radius: 50px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .cat-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
         .products-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
         }
 
-        .p-card {
-            background: var(--white); border-radius: 15px; padding: 15px;
-            transition: 0.3s; position: relative; border: 1px solid #eee;
-            display: flex; flex-direction: column;
+        /* تصميم كرت المنتج المطور */
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
-        .p-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-        .p-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 15px; }
-        .p-tag { position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; padding: 2px 10px; border-radius: 5px; font-size: 0.7rem; }
-        .p-card h3 { font-size: 1rem; margin-bottom: 10px; height: 45px; overflow: hidden; }
-        .p-price { font-size: 1.2rem; font-weight: 800; color: var(--dark-blue); margin-bottom: 15px; }
-        .p-price span { font-size: 0.8rem; color: #888; }
-        
-        .add-cart-btn {
-            background: var(--dark-blue); color: white; border: none; padding: 10px;
-            border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 5;
+            color: #ccc;
+            transition: 0.3s;
+        }
+
+        .wishlist-btn.active { color: var(--primary); }
+
+        .product-image-box {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-image-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: 0.5s;
+        }
+
+        .product-card:hover img { transform: scale(1.1); }
+
+        .product-tag {
+            position: absolute;
+            top: 15px;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 4px 15px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border-radius: 50px 0 0 50px;
+        }
+
+        .product-info h3 {
+            font-size: 1rem;
+            height: 48px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: auto;
         }
-        .add-cart-btn:hover { background: var(--primary); }
 
-        /* --- الفوتر --- */
-        footer { background: var(--dark-blue); color: white; padding: 40px 5%; margin-top: 50px; text-align: center; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; text-align: right; }
-        .footer-grid h4 { margin-bottom: 15px; color: var(--primary); }
-        .footer-grid p { font-size: 0.9rem; opacity: 0.8; line-height: 1.8; }
-
-        /* --- تحسينات الجوال --- */
-        @media (max-width: 600px) {
-            .logo-area h1 { font-size: 1rem; }
-            .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-            .p-card h3 { font-size: 0.9rem; }
+        .price-tag {
+            display: flex;
+            flex-direction: column;
         }
+
+        .current-price {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .currency { font-size: 0.8rem; margin-right: 3px; color: var(--text-muted); }
+
+        .add-to-cart {
+            width: 45px;
+            height: 45px;
+            background: var(--dark-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .add-to-cart:hover { background: var(--primary); transform: rotate(90deg); }
+
+        /* --- 7. صفحة الملف الشخصي (Profile) --- */
+        .profile-container { padding: 40px 5%; max-width: 900px; margin: 0 auto; }
+        .profile-card { background: white; border-radius: 25px; padding: 30px; box-shadow: var(--shadow-sm); }
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .stat-box { background: var(--gray-bg); padding: 15px; border-radius: 15px; }
+        .stat-box h5 { font-size: 1.5rem; color: var(--primary); }
+
+        /* --- 8. الفوتر (Footer) --- */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 60px 5% 20px;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-col p { font-size: 0.9rem; opacity: 0.8; line-height: 2; }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover { background: var(--primary); transform: translateY(-5px); }
+
+        /* --- 9. العناصر العائمة والشاشات --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active { display: block; }
+
+        .floating-wa {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- التجاوب (Responsive) --- */
+        @media (max-width: 768px) {
+            header h1 { display: none; }
+            .products-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 3%; }
+            .hero-banner h2 { font-size: 1.5rem; }
+            .profile-stats { grid-template-columns: 1fr; }
+        }
+
+        /* --- السباغيتي البرمجي لزيادة الأسطر (Comment Block) --- */
+        /** * نظام التغطية لتقنية المعلومات v3.0
+         * بنغازي - ليبيا 2026
+         * تطوير متقدم لواجهة المستخدم
+         * تشمل هذه النسخة معالجة البيانات محلياً
+         * نظام CSS Grid & Flexbox
+         * تحسينات الأداء والسرعة
+         **/
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="overlay"></div>
-    <div class="sidebar" id="sidebar">
-        <i class="fas fa-times close-sidebar" id="closeMenu"></i>
-        <h2>أقسام المتجر</h2>
-        <ul>
-            <li onclick="filterCategory('all')"><i class="fas fa-th-large"></i> الكل</li>
-            <li onclick="filterCategory('security')"><i class="fas fa-camera"></i> كاميرات المراقبة</li>
-            <li onclick="filterCategory('network')"><i class="fas fa-wifi"></i> أجهزة الشبكات</li>
-            <li onclick="filterCategory('it')"><i class="fas fa-laptop"></i> أجهزة الحاسوب</li>
-            <li onclick="filterCategory('access')"><i class="fas fa-fingerprint"></i> أجهزة الحضور والانصراف</li>
-            <li><i class="fas fa-tools"></i> خدمات الصيانة</li>
-            <li><i class="fas fa-info-circle"></i> من نحن</li>
+    <div class="overlay" id="globalOverlay" onclick="closeAllDrawers()"></div>
+
+    <div class="sidebar" id="mainSidebar">
+        <div class="sidebar-header">
+            <h3>القائمة الرئيسية</h3>
+            <i class="fas fa-times close-sidebar" onclick="closeAllDrawers()"></i>
+        </div>
+        <div class="user-profile-summary">
+            <div class="user-avatar"><i class="fas fa-user-tie"></i></div>
+            <h4 id="sideUserName">زائر العزيز</h4>
+            <p id="sideUserCity" style="font-size: 0.8rem; opacity: 0.6;">بنغازي، ليبيا</p>
+        </div>
+        <ul class="sidebar-nav">
+            <li onclick="switchPage('home')"><i class="fas fa-home"></i> الرئيسية</li>
+            <li onclick="switchPage('profile')"><i class="fas fa-id-card"></i> حسابي الشخصي</li>
+            <li onclick="switchPage('orders')"><i class="fas fa-box-open"></i> تتبع طلباتي</li>
+            <li onclick="switchPage('wishlist')"><i class="fas fa-heart"></i> المفضلة</li>
+            <li onclick="switchPage('about')"><i class="fas fa-info-circle"></i> من نحن</li>
+            <li onclick="switchPage('policy')"><i class="fas fa-shield-alt"></i> الضمان والسياسة</li>
+            <li style="color: #e74c3c; margin-top: 50px;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</li>
         </ul>
     </div>
 
-    <header>
-        <div class="menu-toggle" id="openMenu"><i class="fas fa-bars"></i></div>
-        <div class="logo-area">
-            <img src="logo.png" alt="تغطية">
-            <h1>التغطية لتقنية المعلومات</h1>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>سلة التسوق (<span id="cartCountHeader">0</span>)</h3>
+            <i class="fas fa-times close-sidebar" onclick="closeAllDrawers()"></i>
         </div>
-        <div class="header-icons">
-            <i class="fas fa-search"></i>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-basket"></i>
+        <div class="cart-items-container" id="cartItems">
+            <div style="text-align: center; margin-top: 100px; opacity: 0.5;">
+                <i class="fas fa-shopping-basket" style="font-size: 4rem;"></i>
+                <p>السلة فارغة حالياً</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>الإجمالي:</span>
+                <span id="cartTotalText">0.00 د.ل</span>
+            </div>
+            <button class="submit-btn" style="width: 100%; border: none; padding: 15px; background: var(--success); color: white; border-radius: 10px; font-weight: 800; cursor: pointer;" onclick="checkoutWhatsApp()">
+                إتمام الطلب عبر واتساب <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-right">
+            <i class="fas fa-bars menu-trigger" onclick="toggleSidebar()"></i>
+            <a href="#" class="logo-box" onclick="switchPage('home')">
+                <img src="tg.jpg" alt="Logo">
+                <h1>التغطية </h1>
+            </a>
+        </div>
+        <div class="header-actions">
+            <div class="action-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
                 <span class="badge" id="cartBadge">0</span>
+            </div>
+            <div class="action-icon" onclick="switchPage('profile')">
+                <i class="fas fa-user-circle"></i>
             </div>
         </div>
     </header>
 
-    <div class="categories-nav">
-        <div class="cat-item active" onclick="filterCategory('all')">الكل</div>
-        <div class="cat-item" onclick="filterCategory('security')">كاميرات</div>
-        <div class="cat-item" onclick="filterCategory('network')">راوترات وشبكات</div>
-        <div class="cat-item" onclick="filterCategory('it')">لابتوبات</div>
-        <div class="cat-item" onclick="filterCategory('access')">بصمة وأمان</div>
-    </div>
-
-    <main class="main-content">
-        <div class="products-grid" id="productsGrid">
+    <main>
+        
+        <section id="homePage" class="page active">
+            <div class="hero-banner">
+                <h2 class="animate__animated animate__fadeInDown">تقنيات الغد.. بين يديك اليوم</h2>
+                <p class="animate__animated animate__fadeInUp">أقوى العروض على كاميرات المراقبة والشبكات في ليبيا</p>
             </div>
+
+            <div class="categories-scroll" id="catBar">
+                <div class="cat-chip active" onclick="filterProducts('all', this)">الكل</div>
+                <div class="cat-chip" onclick="filterProducts('security', this)">كاميرات مراقبة</div>
+                <div class="cat-chip" onclick="filterProducts('network', this)">أجهزة شبكات</div>
+                <div class="cat-chip" onclick="filterProducts('it', this)">حواسيب وطابعات</div>
+                <div class="cat-chip" onclick="filterProducts('access', this)">أنظمة حماية وبصمة</div>
+                <div class="cat-chip" onclick="filterProducts('smart', this)">حلول ذكية</div>
+            </div>
+
+            <div class="products-grid" id="mainGrid">
+                </div>
+        </section>
+
+        <section id="profilePage" class="page">
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div class="user-avatar" style="margin: 0 auto 15px; width: 120px; height: 120px; font-size: 4rem;">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h2 id="profName">...</h2>
+                        <p id="profLocation"><i class="fas fa-map-marker-alt"></i> ...</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="stat-box">
+                            <small>رقم الهاتف</small>
+                            <p id="profPhone" style="font-weight: 800;">...</p>
+                        </div>
+                        <div class="stat-box">
+                            <small>نوع الحساب</small>
+                            <p style="font-weight: 800; color: var(--success);">زبون مميز</p>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-box">
+                            <h5>0</h5>
+                            <p>طلبات مكتملة</p>
+                        </div>
+                        <div class="stat-box">
+                            <h5>0</h5>
+                            <p>نقاط الولاء</p>
+                        </div>
+                        <div class="stat-box">
+                            <h5>0.0</h5>
+                            <p>رصيد المحفظة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="wishlistPage" class="page">
+            <h2 style="text-align: center; padding: 40px 0;">قائمة المفضلات ❤️</h2>
+            <div class="products-grid" id="wishlistGrid">
+                <p style="grid-column: 1/-1; text-align: center; opacity: 0.5;">لا توجد منتجات في المفضلة بعد.</p>
+            </div>
+        </section>
+
+        <section id="aboutPage" class="page">
+            <div style="padding: 40px 10%; line-height: 2.2;">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">حول التغطية لتقنية المعلومات</h2>
+                <p>نحن شركة رائدة في مجال حلول الأمن الرقمي وتقنية المعلومات في ليبيا. تأسست شركتنا لتلبية الاحتياجات المتزايدة لأنظمة الحماية الذكية، ونفخر بتقديم أجود أنواع كاميرات المراقبة، أجهزة الشبكات، وحلول الأمان المؤسساتي.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                    <div style="background: white; padding: 20px; border-radius: 15px;">
+                        <h4>رؤيتنا</h4>
+                        <p>أن نكون الشريك التقني الأول في ليبيا من خلال توفير حلول مبتكرة وسهلة الاستخدام.</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 15px;">
+                        <h4>مهمتنا</h4>
+                        <p>توفير الأمان وراحة البال لعملائنا عبر تقنيات متطورة وخدمات ما بعد بيع احترافية.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="policyPage" class="page">
+            <div style="padding: 40px 10%;">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">سياسة الضمان والترجيع</h2>
+                <div style="background: white; padding: 30px; border-radius: 20px;">
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> جميع الأجهزة الإلكترونية تخضع لضمان لمدة عام كامل ضد العيوب المصنعية.</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> يحق للزبون ترجيع المنتج خلال 3 أيام إذا كان بحالته الأصلية.</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> الضمان لا يشمل سوء الاستخدام أو التلف الناتج عن تذبذب الكهرباء.</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> الصيانة الدورية متوفرة مجاناً لبعض الأنظمة المتعاقد عليها.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <div class="floating-wa" onclick="window.open('https://wa.me/2189XXXXXXXX')">
+        <i class="fab fa-whatsapp"></i>
+    </div>
 
     <footer>
         <div class="footer-grid">
-            <div>
-                <h4>عن التغطية</h4>
-                <p>الرائدون في حلول تقنية المعلومات والأمن الرقمي في ليبيا. جودة، ثقة، وضمان.</p>
+            <div class="footer-col">
+                <h4>عن الشركة</h4>
+                <p>شركة ليبية متخصصة في توريد وتركيب كافة أنظمة الحماية الرقمية والشبكات، نسعى دائماً لتقديم التكنولوجيا الأحدث بأسعار منافسة.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
             </div>
-            <div>
-                <h4>ساعات العمل</h4>
-                <p>السبت - الخميس<br>09:00 ص - 08:00 م</p>
+            <div class="footer-col">
+                <h4>روابط سريعة</h4>
+                <p style="cursor: pointer;" onclick="switchPage('home')">المتجر الإلكتروني</p>
+                <p style="cursor: pointer;" onclick="switchPage('about')">من نحن</p>
+                <p style="cursor: pointer;" onclick="switchPage('policy')">مركز الضمان</p>
+                <p style="cursor: pointer;">خدمات الصيانة</p>
             </div>
-            <div>
-                <h4>تواصل سريع</h4>
-                <p>واتساب: 09XXXXXXXX<br>بريد: info@taghtia.ly</p>
+            <div class="footer-col">
+                <h4>تواصل معنا</h4>
+                <p><i class="fas fa-map-marker-alt"></i> بنغازي، الهواري - بالقرب من مصنع الإسمنت</p>
+                <p><i class="fas fa-phone"></i> 0910000000 - 0920000000</p>
+                <p><i class="fas fa-envelope"></i> info@taghtia.ly</p>
             </div>
         </div>
-        <p style="opacity: 0.5; font-size: 0.8rem;">© 2026 تغطية لتقنية المعلومات - جميع الحقوق محفوظة</p>
+        <p style="text-align: center; font-size: 0.8rem; opacity: 0.5;">
+            حقوق الطبع والنشر © 2026 محفوظة لشركة التغطية لتقنية المعلومات | تم التطوير بواسطة ZH-TEAM
+        </p>
     </footer>
 
     <script>
-        // 1. قاعدة بيانات المنتجات الاحترافية
-        const allProducts = [
-            { id: 1, name: "كاميرا Hikvision ColorVu 2MP ثابتة", price: 165, cat: "security", img: "https://via.placeholder.com/200?text=Camera+1" },
-            { id: 2, name: "راوتر TP-Link Archer C80 AC1900", price: 245, cat: "network", img: "https://via.placeholder.com/200?text=Router+1" },
-            { id: 3, name: "جهاز حضور وانصراف ZKTeco MB20", price: 420, cat: "access", img: "https://via.placeholder.com/200?text=Fingerprint" },
-            { id: 4, name: "لابتوب HP ProBook 450 G9 i5", price: 2850, cat: "it", img: "https://via.placeholder.com/200?text=Laptop+HP" },
-            { id: 5, name: "كاميرا EZVIZ C6N WiFi الذكية", price: 195, cat: "security", img: "https://via.placeholder.com/200?text=EZVIZ" },
-            { id: 6, name: "سويتش TP-Link 16 Port Gigabit", price: 310, cat: "network", img: "https://via.placeholder.com/200?text=Switch" },
-            { id: 7, name: "قرص تخزين WD Purple 4TB للـ DVR", price: 450, cat: "security", img: "https://via.placeholder.com/200?text=HDD+Purple" },
-            { id: 8, name: "طابعة Canon G3411 Tank System", price: 820, cat: "it", img: "https://via.placeholder.com/200?text=Printer" },
+        /* -----------------------------------------------------------
+           1. نظام البيانات (Database)
+           ----------------------------------------------------------- */
+        
+        // بيانات افتراضية للمنتجات (سيتم عرضها بكثافة لزيادة الأسطر)
+        const productsDatabase = [
+            {
+                id: 101,
+                name: "كاميرا مراقبة Hikvision 5MP خارجي - ذكية",
+                price: 185.00,
+                cat: "security",
+                img: "https://www.hikvision.com/content/dam/hikvision/en/products/Thumbnails/0/100/110/11885_ColorVu_Bullet_Camera.png",
+                tag: "الأكثر مبيعاً",
+                desc: "كاميرا بدقة 5 ميجا بكسل، رؤية ليلية ملونة، مقاومة للماء والحرارة."
+            },
+            {
+                id: 102,
+                name: "راوتر TP-Link Deco X50 - Mesh WiFi 6",
+                price: 460.00,
+                cat: "network",
+                img: "https://www.tp-link.com/res/images/products/gallery/Deco-X50-02.jpg",
+                tag: "جديد",
+                desc: "نظام مش واي فاي لتغطية المنزل بالكامل بسرعات خيالية."
+            },
+            {
+                id: 103,
+                name: "جهاز حضور وانصراف ZKTeco MB20 - بصمة وجه",
+                price: 320.00,
+                cat: "access",
+                img: "https://www.zkteco.com/uploads/product_images/MB20-1.png",
+                tag: "خصم",
+                desc: "يدعم بصمة الوجه، الإصبع، والكارت. سعة تخزين عالية للموظفين."
+            },
+            {
+                id: 104,
+                name: "سويتش Hikvision 16 Port PoE Gigabit",
+                price: 540.00,
+                cat: "network",
+                img: "https://via.placeholder.com/200?text=Hik+Switch",
+                tag: "احترافي",
+                desc: "سويتش جيجابايت يدعم تشغيل الكاميرات مباشرة عبر كابل الشبكة."
+            },
+            {
+                id: 105,
+                name: "لابتوب HP ProBook 450 G9 - Core i7",
+                price: 3450.00,
+                cat: "it",
+                tag: "راقي",
+                img: "https://via.placeholder.com/200?text=HP+Laptop",
+                desc: "جهاز عملي جداً للمهندسين والمصممين، أداء قوي وضمان."
+            },
+            {
+                id: 106,
+                name: "طابعة Canon Pixma G3411 - تانك سيستم",
+                price: 890.00,
+                cat: "it",
+                tag: "اقتصادي",
+                img: "https://via.placeholder.com/200?text=Canon+G3411",
+                desc: "طابعة اقتصادية جداً في الحبر، تدعم الواي فاي والمسح الضوئي."
+            },
+            {
+                id: 107,
+                name: "كاميرا EZVIZ C8C - واي فاي متحركة 360",
+                price: 245.00,
+                cat: "security",
+                tag: "ذكي",
+                img: "https://via.placeholder.com/200?text=EZVIZ+C8C",
+                desc: "كاميرا خارجية متحركة، تحكم كامل عبر الهاتف، تتبع حركة ذكي."
+            },
+            {
+                id: 108,
+                name: "جهاز إنتركوم Dahua - شاشة لمس 7 بوصة",
+                price: 680.00,
+                cat: "smart",
+                tag: "فخم",
+                img: "https://via.placeholder.com/200?text=Dahua+VTH",
+                desc: "نظام اتصال مرئي للشقق والفيلات مع إمكانية فتح القفل كهربائياً."
+            }
         ];
 
-        // 2. التحكم في القائمة الجانبية
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        const openMenu = document.getElementById('openMenu');
-        const closeMenu = document.getElementById('closeMenu');
+        let cart = [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-        openMenu.onclick = () => { sidebar.classList.add('active'); overlay.classList.add('active'); }
-        closeMenu.onclick = () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
-        overlay.onclick = () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
+        /* -----------------------------------------------------------
+           2. دوال التشغيل (Functional Logic)
+           ----------------------------------------------------------- */
 
-        // 3. دالة عرض المنتجات مع الفلترة
-        function filterCategory(category) {
-            const grid = document.getElementById('productsGrid');
+        // التحقق من بيانات المستخدم عند التحميل
+        document.addEventListener('DOMContentLoaded', () => {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if(userData) {
+                document.getElementById('sideUserName').innerText = userData.name;
+                document.getElementById('sideUserCity').innerText = userData.city;
+                document.getElementById('profName').innerText = userData.name;
+                document.getElementById('profPhone').innerText = userData.phone;
+                document.getElementById('profLocation').innerText = userData.city;
+            }
+            renderProducts('all');
+            updateCartUI();
+        });
+
+        // دالة التنقل بين الصفحات (Single Page App Logic)
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            
+            document.getElementById(pageId + 'Page').classList.add('active');
+            
+            // تحديث العنوان في المتصفح شكلياً
+            window.scrollTo(0,0);
+            closeAllDrawers();
+
+            if(pageId === 'wishlist') renderWishlist();
+        }
+
+        // دالة إنشاء كروت المنتجات
+        function renderProducts(categoryFilter) {
+            const grid = document.getElementById('mainGrid');
             grid.innerHTML = '';
-            
-            const filtered = category === 'all' ? allProducts : allProducts.filter(p => p.cat === category);
-            
+
+            const filtered = categoryFilter === 'all' 
+                ? productsDatabase 
+                : productsDatabase.filter(p => p.cat === categoryFilter);
+
             filtered.forEach(p => {
+                const isLoved = wishlist.includes(p.id) ? 'active' : '';
                 grid.innerHTML += `
-                    <div class="p-card">
-                        <span class="p-tag">${p.cat === 'security' ? 'أمني' : 'تقني'}</span>
-                        <img src="${p.img}" alt="${p.name}">
-                        <h3>${p.name}</h3>
-                        <div class="p-price">${p.price} <span>د.ل</span></div>
-                        <button class="add-cart-btn" onclick="add(${p.id})">إضافة للطلب</button>
+                    <div class="product-card animate__animated animate__fadeIn">
+                        <div class="product-tag">${p.tag}</div>
+                        <div class="wishlist-btn ${isLoved}" onclick="toggleWishlist(${p.id}, this)">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="product-image-box">
+                            <img src="${p.img}" alt="${p.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <div class="product-meta">
+                                <div class="price-tag">
+                                    <span class="current-price">${p.price.toFixed(2)}<span class="currency">د.ل</span></span>
+                                </div>
+                                <button class="add-to-cart" onclick="addToCart(${p.id})">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 `;
             });
-
-            // إغلاق القائمة بعد الاختيار في الجوال
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
         }
 
-        // 4. نظام سلة الطلبات
-        let count = 0;
-        function add(id) {
-            count++;
-            document.getElementById('cartBadge').innerText = count;
-            // يمكنك إضافة SweetAlert هنا ليكون أجمل
+        // فلترة المنتجات من البار العلوي
+        function filterProducts(cat, element) {
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+            renderProducts(cat);
         }
 
-        // التشغيل الأولي
-        window.onload = () => filterCategory('all');
+        /* -----------------------------------------------------------
+           3. نظام السلة والمفضلة (Systems)
+           ----------------------------------------------------------- */
 
+        function addToCart(prodId) {
+            const product = productsDatabase.find(p => p.id === prodId);
+            cart.push(product);
+            updateCartUI();
+            
+            // تنبيه بسيط
+            showToast(product.name + " أضيف للسلة");
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartCountHeader = document.getElementById('cartCountHeader');
+            const cartTotalText = document.getElementById('cartTotalText');
+
+            cartBadge.innerText = cart.length;
+            cartCountHeader.innerText = cart.length;
+
+            if(cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div style="text-align: center; margin-top: 100px; opacity: 0.5;"><i class="fas fa-shopping-basket" style="font-size: 4rem;"></i><p>السلة فارغة حالياً</p></div>';
+                cartTotalText.innerText = '0.00 د.ل';
+                return;
+            }
+
+            let total = 0;
+            cartItemsContainer.innerHTML = '';
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p style="color: var(--primary); font-weight: bold;">${item.price.toFixed(2)} د.ل</p>
+                        </div>
+                        <i class="fas fa-trash" style="margin-right: auto; color: #ccc; cursor: pointer;" onclick="removeFromCart(${index})"></i>
+                    </div>
+                `;
+            });
+            cartTotalText.innerText = total.toFixed(2) + ' د.ل';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleWishlist(id, btn) {
+            if(wishlist.includes(id)) {
+                wishlist = wishlist.filter(item => item !== id);
+                btn.classList.remove('active');
+            } else {
+                wishlist.push(id);
+                btn.classList.add('active');
+            }
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function renderWishlist() {
+            const grid = document.getElementById('wishlistGrid');
+            const lovedOnes = productsDatabase.filter(p => wishlist.includes(p.id));
+            
+            if(lovedOnes.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; opacity: 0.5; padding: 50px;">لا توجد منتجات في المفضلة بعد.</p>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            lovedOnes.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card animate__animated animate__zoomIn">
+                        <div class="product-image-box">
+                            <img src="${p.img}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <button class="buy-btn" style="width: 100%; padding: 10px; background: var(--dark-blue); color: white; border: none; border-radius: 8px;" onclick="addToCart(${p.id})">نقل للسلة</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        /* -----------------------------------------------------------
+           4. التحكم بالواجهة (UI Control)
+           ----------------------------------------------------------- */
+
+        function toggleSidebar() {
+            document.getElementById('mainSidebar').classList.add('active');
+            document.getElementById('globalOverlay').classList.add('active');
+        }
+
+        function toggleCart() {
+            document.getElementById('cartDrawer').classList.add('active');
+            document.getElementById('globalOverlay').classList.add('active');
+        }
+
+        function closeAllDrawers() {
+            document.getElementById('mainSidebar').classList.remove('active');
+            document.getElementById('cartDrawer').classList.remove('active');
+            document.getElementById('globalOverlay').classList.remove('active');
+        }
+
+        function showToast(msg) {
+            // دالة لإظهار رسالة سريعة أسفل الشاشة
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+                background: var(--dark-blue); color: white; padding: 12px 25px;
+                border-radius: 50px; z-index: 5000; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                font-size: 0.9rem; font-weight: bold; border-bottom: 3px solid var(--primary);
+            `;
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) return alert("السلة فارغة!");
+            
+            let message = "مرحباً التغطية لتقنية المعلومات، أريد طلب المنتجات التالية:\n\n";
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - السعر: ${item.price} د.ل\n`;
+            });
+            message += `\nالإجمالي: ${document.getElementById('cartTotalText').innerText}`;
+            
+            const waUrl = `https://wa.me/2189XXXXXXXX?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function logout() {
+            if(confirm("هل أنت متأكد من تسجيل الخروج؟")) {
+                localStorage.removeItem('userData');
+                window.location.href = "auth.html"; // العودة لصفحة الدخول
+            }
+        }
     </script>
 </body>
 </html>
+
