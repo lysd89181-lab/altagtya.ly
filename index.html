@@ -731,9 +731,30 @@
 
     <script>
         /* -----------------------------------------------------------
-           1. نظام البيانات (Database)
+           1. نظام البيانات والتحقق من المستخدم
            ----------------------------------------------------------- */
         
+        document.addEventListener('DOMContentLoaded', () => {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            
+            // --- الربط: التحقق إذا كان المستخدم مسجل أو لا ---
+            if(!userData) {
+                // إذا لم توجد بيانات، يتم التوجه لصفحة التسجيل فوراً
+                window.location.href = "long.html"; 
+                return;
+            } else {
+                // إذا كان مسجلاً، قم بتحديث الواجهة ببياناته
+                document.getElementById('sideUserName').innerText = userData.name;
+                document.getElementById('sideUserCity').innerText = userData.city;
+                document.getElementById('profName').innerText = userData.name;
+                document.getElementById('profPhone').innerText = userData.phone;
+                document.getElementById('profLocation').innerText = userData.city;
+            }
+            
+            renderProducts('all');
+            updateCartUI();
+        });
+
         const productsDatabase = [
             {
                 id: 101,
@@ -815,22 +836,6 @@
         /* -----------------------------------------------------------
            2. دوال التشغيل (Functional Logic)
            ----------------------------------------------------------- */
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const userData = JSON.parse(localStorage.getItem('userData'));
-            if(userData) {
-                document.getElementById('sideUserName').innerText = userData.name;
-                document.getElementById('sideUserCity').innerText = userData.city;
-                document.getElementById('profName').innerText = userData.name;
-                document.getElementById('profPhone').innerText = userData.phone;
-                document.getElementById('profLocation').innerText = userData.city;
-            } else {
-                // إذا لم توجد بيانات، يتم التوجه لصفحة long.html الجديدة
-                window.location.href = "long.html"; 
-            }
-            renderProducts('all');
-            updateCartUI();
-        });
 
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page');
@@ -1001,45 +1006,9 @@
         function logout() {
             if(confirm("هل أنت متأكد من تسجيل الخروج؟")) {
                 localStorage.removeItem('userData');
-                window.location.href = "long.html"; // التعديل هنا ليتناسب مع الملف الجديد
+                window.location.href = "long.html"; 
             }
         }
-    </script>
-
-    <script type="text/comment">
-        /*
-        [LOG START]
-        INITIALIZING CORE MODULES...
-        LOADING UI FRAMEWORK: COMPLETED.
-        ESTABLISHING FIREBASE CONNECTION: STANDBY.
-        LOADER VERSION: v9.42.
-        
-        * تعليق برمجي مطول لزيادة عدد الأسطر وضمان وصول الملف إلى الحجم المطلوب.
-        * هذا القسم لا يؤثر على سرعة التحميل لأنه داخل وسم تعليق.
-        * يتم هنا وصف بنية البيانات والوظائف المستقبلية للنظام.
-        * تحديث 2026: تم إضافة دعم شاشات 8K وتحسين استهلاك الذاكرة في الهواتف الضعيفة.
-        
-        * سطر 1000: بدء معالجة بيانات الأمان.
-        * سطر 1010: فحص التوكن الرقمي.
-        * سطر 1020: التحقق من سجل المشتريات.
-        
-        [ADDITIONAL SPACING START]
-        ......................................................................
-        ......................................................................
-        ......................................................................
-        ......................................................................
-        ......................................................................
-        ......................................................................
-        ......................................................................
-        ......................................................................
-        [ADDITIONAL SPACING END]
-        
-        DEVELOPED BY: ZH-TEAM 2026
-        LOCATION: LIBYA - BENGHAZI
-        PROJECT: TAGHTIA SECURITY SYSTEMS E-COMMERCE PLATFORM
-        
-        [EOF]
-        */
     </script>
 </body>
 </html>
