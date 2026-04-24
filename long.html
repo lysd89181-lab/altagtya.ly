@@ -318,14 +318,14 @@
                 <div class="form-group">
                     <label>رقم الهاتف</label>
                     <div class="input-wrapper">
-                        <input type="tel" placeholder="09XXXXXXXX" required>
+                        <input type="tel" id="loginPhone" placeholder="09XXXXXXXX" required>
                         <i class="fas fa-phone"></i>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>كلمة السر</label>
                     <div class="input-wrapper">
-                        <input type="password" placeholder="••••••••" required>
+                        <input type="password" id="loginPass" placeholder="••••••••" required>
                         <i class="fas fa-lock"></i>
                     </div>
                 </div>
@@ -427,25 +427,57 @@
             }
         }
 
-        // التحقق الذكي من كلمة السر
+        // --- نظام حفظ البيانات والتحويل لصفحة المتجر ---
+        
+        // تسجيل دخول (تجريبي باستخدام localStorage)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('loginPhone').value;
+            // هنا في العادة يتم التحقق من قاعدة البيانات، سنقوم بحفظ بيانات افتراضية للآن
+            const userData = {
+                name: "مستخدم مسجل",
+                phone: phone,
+                city: "بنغازي" // افتراضي
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            window.location.href = "index.html"; 
+        });
+
+        // إنشاء حساب جديد
         document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             const pass = document.getElementById('regPass').value;
             const confirm = document.getElementById('regPassConfirm').value;
             const errorElement = document.getElementById('passError');
             const confirmInput = document.getElementById('regPassConfirm');
 
             if (pass !== confirm) {
-                e.preventDefault(); // منع الإرسال
                 errorElement.style.display = 'block';
                 confirmInput.style.borderColor = 'var(--error)';
                 confirmInput.focus();
             } else {
                 errorElement.style.display = 'none';
                 confirmInput.style.borderColor = '#eee';
-                // هنا تضع كود Firebase لإرسال البيانات
-                alert("جاري إنشاء حسابك في التغطية... شكراً لثقتكم.");
+                
+                // حفظ البيانات
+                const userData = {
+                    name: document.getElementById('regName').value,
+                    phone: document.getElementById('regPhone').value,
+                    city: document.getElementById('regCity').value
+                };
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                alert("تم إنشاء حسابك بنجاح! جاري تحويلك للمتجر...");
+                window.location.href = "index.html"; 
             }
         });
+
+        // إذا كان المستخدم مسجل دخول بالفعل، حوله للمتجر طول
+        window.onload = function() {
+            if(localStorage.getItem('userData')) {
+                window.location.href = "index.html";
+            }
+        }
     </script>
 </body>
 </html>
